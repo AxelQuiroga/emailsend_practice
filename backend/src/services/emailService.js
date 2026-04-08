@@ -7,14 +7,14 @@ export const sendEmail = async ({ name, email, message }) => {
       port: 587,
       secure: false,
       auth: {
-        user: 'your-email@gmail.com',
-        pass: 'your-password'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
       }
     });
 
     const mailOptions = {
-      from: 'your-email@gmail.com',
-      to: 'recipient@example.com',
+      from: process.env.EMAIL_USER,
+      to: 'lokuraa18@hotmail.com',
       subject: `Nuevo mensaje de ${name || email}`,
       text: `De: ${name || 'Anónimo'} (${email})\n\nMensaje:\n${message}`
     };
