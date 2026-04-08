@@ -1,4 +1,4 @@
-import { sendEmail } from '../services/emailService.js';
+import { createContact } from '../services/contactService.js';
 
 export const handleContactRequest = async (req, res) => {
     const { name, email, message } = req.body;
@@ -8,10 +8,10 @@ export const handleContactRequest = async (req, res) => {
     }
 
     try {
-        await sendEmail({ name, email, message });
-        res.json({ message: "Consulta enviada correctamente" });
+        await createContact({ name, email, message });
+        res.json({ message: "Consulta enviada y guardada correctamente" });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error sending email' });
+        res.status(500).json({ message: 'Error al procesar la consulta' });
     }
 };
