@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-export const sendEmail = async (req, res) => {
+export const sendEmail = async ({ name, email, message }) => {
   try {
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
@@ -15,14 +15,12 @@ export const sendEmail = async (req, res) => {
     const mailOptions = {
       from: 'your-email@gmail.com',
       to: 'recipient@example.com',
-      subject: 'Test Email',
-      text: 'This is a test email sent from Node.js'
+      subject: `Nuevo mensaje de ${name || email}`,
+      text: `De: ${name || 'Anónimo'} (${email})\n\nMensaje:\n${message}`
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200).json({ message: 'Email sent successfully' });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Error sending email' });
   }
 };
