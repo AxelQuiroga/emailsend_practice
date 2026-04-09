@@ -1,4 +1,4 @@
-import { URL_FRONT } from "../backend/src/config/env.js";
+import { URL_FRONT } from "./env.js"
 
 const form = document.getElementById("contactForm");
 const responseMsg = document.getElementById("responseMsg");
