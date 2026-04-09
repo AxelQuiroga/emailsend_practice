@@ -1,8 +1,16 @@
 const form = document.getElementById("contactForm");
 const responseMsg = document.getElementById("responseMsg");
+const submitBtn = form.querySelector("button[type='submit']");
+const API_URL = "http://localhost:3000/api/contact";
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  // Loading state
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Enviando...";
+  responseMsg.className = "";
+  responseMsg.textContent = "";
 
   const data = {
     name: document.getElementById("name").value,
@@ -11,7 +19,7 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
-    const res = await fetch("http://localhost:3000/api/contact", {
+    const res = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -21,10 +29,21 @@ form.addEventListener("submit", async (e) => {
 
     const result = await res.json();
 
-    responseMsg.textContent = result.message;
-    form.reset();
+    if (res.ok) {
+      responseMsg.textContent = "¡Consulta enviada correctamente!";
+      responseMsg.className = "success";
+      form.reset();
+    } else {
+      responseMsg.textContent = result.error || "Error al enviar la consulta";
+      responseMsg.className = "error";
+    }
 
   } catch (error) {
-    responseMsg.textContent = "Error al enviar";
+    responseMsg.textContent = "Error de conexión. Intenta de nuevo.";
+    responseMsg.className = "error";
+  } finally {
+    // Reset button state
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Enviar";
   }
 });

@@ -24,6 +24,12 @@ input, textarea {
   border-radius: 6px;
 }
 
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: Arial, sans-serif;
+}
+
 button {
   width: 100%;
   padding: 10px;
@@ -34,6 +40,28 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background: #5a52d4;
+}
+
+button:disabled {
+  background: #4a4a6a;
+  cursor: not-allowed;
+}
+
+#responseMsg {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+#responseMsg.success {
+  background: #4caf50;
+  color: white;
+}
+
+#responseMsg.error {
+  background: #f44336;
+  color: white;
 }
