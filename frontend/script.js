@@ -1,7 +1,8 @@
+import { URL_FRONT } from "../backend/src/config/env.js";
+
 const form = document.getElementById("contactForm");
 const responseMsg = document.getElementById("responseMsg");
 const submitBtn = form.querySelector("button[type='submit']");
-const API_URL = "http://localhost:3000/api/contact";
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -19,7 +20,7 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
-    const res = await fetch(API_URL, {
+    const res = await fetch(URL_FRONT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
